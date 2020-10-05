@@ -1,4 +1,4 @@
-package local.jfbenito.room;
+package local.jbenito.room;
 
 import local.jbenito.dto.GameDTO;
 import local.jbenito.dto.RoomDTO;
