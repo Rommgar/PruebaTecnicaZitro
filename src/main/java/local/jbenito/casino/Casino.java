@@ -1,7 +1,7 @@
 package local.jbenito.casino;
 
 import local.jbenito.player.Player;
-import local.jfbenito.room.Room;
+import local.jbenito.room.Room;
 
 public class Casino {
 	private final int idCasino;
