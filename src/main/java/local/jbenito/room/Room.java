@@ -5,7 +5,6 @@ import local.jbenito.dto.RoomDTO;
 import local.jbenito.gamble.Gamble;
 import local.jbenito.game.GameInitializer;
 import local.jbenito.player.Player;
-import local.jbenito.sender.Sender;
 
 public class Room extends RoomDTO {
 	public Room(Player player) {
@@ -25,14 +24,16 @@ public class Room extends RoomDTO {
 			this.setRunning(false);
 		}
 	}
-
-	private void destroyTimer() {
+	
+	@Override
+	protected void destroyTimer() {
 		timer.cancel();
 		timer = null;
 	}
-
-	private void gameSelection() {
-		String availabelGames = Sender.sendAvailableGames();
+	
+	@Override
+	protected void gameSelection() {
+		String availabelGames = GameInitializer.availableGames();
 		GameDTO selectedGame = GameInitializer.initGame(availabelGames);
 		this.setGame(selectedGame);
 		this.player.setPlaying(true);

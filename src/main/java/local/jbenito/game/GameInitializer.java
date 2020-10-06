@@ -6,6 +6,7 @@ import java.util.List;
 
 import local.jbenito.dto.GameDTO;
 import local.jbenito.game.AbailableGames;
+import local.jbenito.sender.Sender;
 
 public class GameInitializer {
 	public static GameDTO initGame(String selectedGame) {
@@ -17,6 +18,17 @@ public class GameInitializer {
 			}
 		}
 		return gameInitialized;
+	}
+	
+	public static String availableGames() {
+		List<AbailableGames> games = Arrays.asList(AbailableGames.values());
+		String nameGames[] = new String[games.size()];
+		int i = 0;
+    	for (AbailableGames game : games) {
+    		nameGames[i] = game.name();
+    		i++;
+		}
+		return Sender.sendAvailableGames(nameGames);
 	}
 	
 	private static GameDTO gameSelector(AbailableGames game) {

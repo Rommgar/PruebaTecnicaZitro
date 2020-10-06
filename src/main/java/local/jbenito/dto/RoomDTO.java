@@ -31,4 +31,7 @@ public abstract class RoomDTO extends Thread{
 	
 	@Override
 	public abstract void run();
+	
+	protected abstract void destroyTimer();
+	protected abstract void gameSelection();
 }
