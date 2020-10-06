@@ -58,7 +58,7 @@ public class Gamble extends GambleDTO {
 			this.setPlayerCredits(this.getPlayerCredits().add(balance));
 		} else {
 			this.balance = balance.subtract(this.bet);
-			this.setPlayerCredits(this.getPlayerCredits().subtract(bet));
+			this.setPlayerCredits(this.getPlayerCredits().subtract(bet).setScale(2, RoundingMode.CEILING));
 		}
 
 	}

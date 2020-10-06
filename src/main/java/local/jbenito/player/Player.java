@@ -9,7 +9,7 @@ public class Player {
 	private BigDecimal credit;
 	private boolean playing;
 
-	public Player(int uuid, long maxTimePlay, int provider, String credit) {
+	public Player(int uuid, long maxTimePlay, int provider, double credit) {
 		this.uuid = uuid;
 		this.maxTimePlay = maxTimePlay;
 		this.credit = new BigDecimal(credit);
@@ -49,7 +49,7 @@ public class Player {
 		this.credit = credit;
 	}
 
-	public static Player createPlayer(int uuid, long maxTimePlay, int provider, String credit) {
+	public static Player createPlayer(int uuid, long maxTimePlay, int provider, double credit) {
 		Player newPlayer = new Player(uuid, maxTimePlay, provider, credit);
 		return newPlayer;
 	}

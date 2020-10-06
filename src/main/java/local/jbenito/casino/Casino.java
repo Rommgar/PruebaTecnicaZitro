@@ -25,7 +25,7 @@ public class Casino {
 		return maxPlayers;
 	}
 
-	public void playerAuth(int uuid, long maxTimePlay, int provider, String credit) {
+	public void playerAuth(int uuid, long maxTimePlay, int provider, double credit) {
 		Player player = Player.createPlayer(uuid, maxTimePlay, provider, credit);
 		int maxPlayers = this.getMaxPlayers();
 		if (maxPlayers > this.onlinePlayers) {
