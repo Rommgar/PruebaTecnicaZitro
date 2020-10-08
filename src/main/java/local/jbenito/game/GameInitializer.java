@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import local.jbenito.dto.GameDTO;
-import local.jbenito.game.AbailableGames;
 import local.jbenito.sender.Sender;
 
 public class GameInitializer {
@@ -40,7 +39,7 @@ public class GameInitializer {
 		case "POKER":
 			return  new Poker(game);
 		case "RULETA":
-			return  new Ruleta(game);
+			return  new rulette(game);
 		case "SLOTS":
 			return  new Slots(game);
 		default:

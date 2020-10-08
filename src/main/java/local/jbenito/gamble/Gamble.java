@@ -5,14 +5,19 @@ import java.math.RoundingMode;
 
 import local.jbenito.dto.GambleDTO;
 import local.jbenito.game.Prizes;
-import local.jbenito.log.LogSistem;
+import local.jbenito.log.LogFactory;
+import local.jbenito.log.LogSystem;
 import local.jbenito.sender.Sender;
 
 public class Gamble extends GambleDTO {
+	LogSystem log = new LogFactory().LogFile();
+	LogSystem logErr = new LogFactory().LogConsole();
+	
+	
 	public Gamble(Object game, Object player) {
 		super(game, player);
 	}
-
+	
 	private void tryBetIsCorrect() {
 		boolean correctBet;
 		do {
@@ -20,7 +25,7 @@ public class Gamble extends GambleDTO {
 				sendBet(this.game.getMinBet(), this.game.getMaxBet());
 				correctBet = true;
 			} catch (Exception e) {
-				LogSistem.fileExceptions(e.toString());
+				logErr.send(e.toString());
 				correctBet = false;
 			}
 		} while (!correctBet);
@@ -77,8 +82,7 @@ public class Gamble extends GambleDTO {
 	}
 
 	private void sendlog() {
-		LogSistem.printLog(toString());
-		LogSistem.fileLog(toString());
+		log.send(toString());
 	}
 
 	@Override
