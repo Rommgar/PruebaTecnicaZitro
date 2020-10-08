@@ -32,11 +32,17 @@ public class Gamble extends GambleDTO {
 		this.setOtherGameOptions(this.game.selectOtherOptions());
 	}
 
+	private boolean betIsInRange(BigDecimal selectedBet, BigDecimal minBet, BigDecimal maxBet) {
+		boolean betinRange  = (selectedBet.compareTo(maxBet) == -1 && selectedBet.compareTo(minBet) == 1);
+		betinRange = betinRange || selectedBet.compareTo(maxBet) == 0;
+		betinRange = betinRange || selectedBet.compareTo(minBet) == 0;
+		return betinRange;
+	}
+	
 	private void sendBet(BigDecimal minBet, BigDecimal maxBet) {
 		BigDecimal selectedBet = Sender.sendAvailableBets(minBet, maxBet);
-		if ((selectedBet.compareTo(maxBet) == -1 && selectedBet.compareTo(minBet) == 1)
-				|| selectedBet.compareTo(maxBet) == 0 || selectedBet.compareTo(minBet) == 0) {
-			this.bet = selectedBet;
+		if (betIsInRange(selectedBet, minBet, maxBet)) {
+			this.bet = normalizeBigDecimal(selectedBet);
 		} else {
 			throw new RuntimeException("La apuesta esta fuera de rango");
 		}
@@ -57,15 +63,26 @@ public class Gamble extends GambleDTO {
 
 	private void calculateBalance() {
 		if (isAwarded()) {
-			BigDecimal betPercenatge = new BigDecimal(prize.getBetPercentage() / 100).setScale(2, RoundingMode.CEILING);
+			BigDecimal betPercenatge = new BigDecimal(prize.getBetPercentage() / 100);
 			betPercenatge.subtract(bet);
 			this.balance = this.bet.multiply(betPercenatge);
 			this.setPlayerCredits(this.getPlayerCredits().add(balance));
 		} else {
 			this.balance = balance.subtract(this.bet);
-			this.setPlayerCredits(this.getPlayerCredits().subtract(bet).setScale(2, RoundingMode.CEILING));
+			this.setPlayerCredits(this.getPlayerCredits().subtract(bet));
 		}
-
+		this.balance = normalizeBigDecimal(this.balance);
+		this.setPlayerCredits(normalizeBigDecimal(this.getPlayerCredits()));
+	}
+	
+	private BigDecimal normalizeBigDecimal(BigDecimal bigDecimal) {
+		if (bigDecimal.scale() > 2) {
+			bigDecimal = bigDecimal.setScale(2, RoundingMode.DOWN);
+		}
+		else if(bigDecimal.scale() < 2) {
+			bigDecimal = new BigDecimal(bigDecimal.toString()+"0");
+		}
+		return bigDecimal;
 	}
 
 	public void strat() {
