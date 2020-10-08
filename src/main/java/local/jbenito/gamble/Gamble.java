@@ -5,8 +5,8 @@ import java.math.RoundingMode;
 
 import local.jbenito.dto.GambleDTO;
 import local.jbenito.game.Prizes;
-import local.jbenito.log.LogFactory;
-import local.jbenito.log.LogSystem;
+import local.jbenito.loggin.LogFactory;
+import local.jbenito.loggin.LogSystem;
 import local.jbenito.sender.Sender;
 
 public class Gamble extends GambleDTO {
