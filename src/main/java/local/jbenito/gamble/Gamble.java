@@ -23,7 +23,7 @@ public class Gamble extends GambleDTO {
 				sendBet(this.game.getMinBet(), this.game.getMaxBet());
 				correctBet = true;
 			} catch (Exception e) {
-				//logErr.send(e.toString());
+				logErr.send(e.toString());
 				correctBet = false;
 			}
 		} while (!correctBet);
@@ -33,10 +33,14 @@ public class Gamble extends GambleDTO {
 	private void sendBet(Credit minBet, Credit maxBet) {
 		Credit selectedBet = Sender.sendAvailableBets(minBet, maxBet);
 		if (selectedBet.isInRange(minBet, maxBet)) {
-			selectedBet = selectedBet.normalizeCredit();
+			selectedBet.normalizeCredit();
 			this.bet = selectedBet;
 		} else {
-			throw new RuntimeException("La apuesta esta fuera de rango");
+			selectedBet.normalizeCredit();
+			maxBet.normalizeCredit();
+			minBet.normalizeCredit();
+			throw new RuntimeException("La apuesta esta fuera de rango MinBet: " + minBet.getCredit() + "MaxBet: " + 
+					maxBet.getCredit() + " Bet: " + selectedBet.getCredit());
 		}
 
 	}
@@ -54,19 +58,20 @@ public class Gamble extends GambleDTO {
 	}
 
 	private void calculateBalance() {
+		Credit playerCredit = this.player.getCredit();
 		if (isAwarded()) {
 			Credit betPercenatge = new Credit((double)prize.getBetPercentage() / 100);
 			betPercenatge.normalizeCredit();
 			betPercenatge.subtract(bet);
-			this.balance = this.bet.multiply(betPercenatge);
-			this.setPlayerCredits(this.getPlayerCredits().add(balance));
+			this.bet.multiply(betPercenatge);
+			this.balance = this.bet;
+			playerCredit.add(balance);
 		} else {
-			this.balance = balance.subtract(this.bet);
-			this.setPlayerCredits(this.getPlayerCredits().subtract(bet));
+			this.balance.subtract(this.bet);
+			playerCredit.subtract(bet);
 		}
-		this.balance = this.balance.normalizeCredit();
-		//System.out.println(this.balance.normalizeCredit());
-		this.player.setCredit(this.player.getCredit().normalizeCredit());
+		this.balance.normalizeCredit();
+		this.player.getCredit().normalizeCredit();
 	}
 
 	public void strat() {
@@ -83,33 +88,6 @@ public class Gamble extends GambleDTO {
 	}
 
 	private void sendlog() {
-		log.send(toString());
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Gamble [date=");
-		builder.append(date);
-		builder.append(", uuidPlayer=");
-		builder.append(this.getUuidPlayer());
-		builder.append(", playerCredits=");
-		builder.append(this.getPlayerCredits());
-		builder.append(", uuidProvider=");
-		builder.append(this.player.getProvider());
-		builder.append(", bet=");
-		builder.append(bet);
-		builder.append(", balance=");
-		builder.append(balance);
-		builder.append(", awarded=");
-		builder.append(awarded);
-		builder.append(", typeGame=");
-		builder.append(this.getTypeGame());
-		builder.append(", prize=");
-		builder.append(prize);
-		builder.append(", otherGameOption=");
-		builder.append(otherGameOption);
-		builder.append("]");
-		return builder.toString();
+		log.send(this.toString());
 	}
 }

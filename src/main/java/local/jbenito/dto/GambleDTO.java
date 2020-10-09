@@ -12,12 +12,13 @@ public abstract class GambleDTO {
 	protected GameDTO game;
 	protected Player player;
 	protected Credit bet;
-	protected Credit balance = new Credit(0.00);
+	protected Credit balance;
 	protected Boolean awarded;
 	protected Prizes prize;
 	protected List<Object> otherGameOption;
 
 	public GambleDTO(Object game, Object player) {
+		this.balance = new Credit(00.00);
 		this.date = LocalDateTime.now();
 		this.game = (GameDTO) game;
 		this.player = (Player) player;
@@ -85,5 +86,31 @@ public abstract class GambleDTO {
 
 	public int getUuidProvider() {
 		return this.player.getUuid();
+	}
+	
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Gamble [date=");
+		builder.append(this.date);
+		builder.append(", uuidPlayer=");
+		builder.append(this.player.getUuid());
+		builder.append(", playerCredits=");
+		builder.append(this.player.getCredit());
+		builder.append(", uuidProvider=");
+		builder.append(this.player.getProvider());
+		builder.append(", bet=");
+		builder.append(this.bet);
+		builder.append(", balance=");
+		builder.append(this.balance);
+		builder.append(", awarded=");
+		builder.append(this.awarded);
+		builder.append(", typeGame=");
+		builder.append(this.getTypeGame());
+		builder.append(", prize=");
+		builder.append(this.prize);
+		builder.append(", otherGameOption=");
+		builder.append(this.otherGameOption);
+		builder.append("]");
+		return builder.toString();
 	}
 }

@@ -36,7 +36,7 @@ public class BotPlayer {
 	
 	private static BigDecimal getRandomBigDecimal(BigDecimal minBet, BigDecimal maxBet) {
 		
-		int firstRandom = getRandomNumber(minBet.intValue(), maxBet.intValue()+60000);
+		int firstRandom = getRandomNumber(minBet.intValue(), maxBet.intValue()+100);
 		int secondRandom = getRandomNumber(0, 99);
 		
 		BigDecimal randBigDecimal = new BigDecimal(String.valueOf(firstRandom+"."+secondRandom));
