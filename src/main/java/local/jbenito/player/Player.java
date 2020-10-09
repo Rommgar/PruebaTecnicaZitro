@@ -1,18 +1,18 @@
 package local.jbenito.player;
 
-import java.math.BigDecimal;
+import local.jbenito.credit.Credit;
 
 public class Player {
 	private final int uuid;
 	private final int provider;
 	private long maxTimePlay;
-	private BigDecimal credit;
+	private Credit credit;
 	private boolean playing;
 
 	public Player(int uuid, long maxTimePlay, int provider, double credit) {
 		this.uuid = uuid;
 		this.maxTimePlay = maxTimePlay;
-		this.credit = new BigDecimal(credit);
+		this.credit = new Credit(credit);
 		this.provider = provider;
 		this.playing = false;
 	}
@@ -41,11 +41,11 @@ public class Player {
 		this.playing = playing;
 	}
 
-	public BigDecimal getCredit() {
+	public Credit getCredit() {
 		return credit;
 	}
 
-	public void setCredit(BigDecimal credit) {
+	public void setCredit(Credit credit) {
 		this.credit = credit;
 	}
 

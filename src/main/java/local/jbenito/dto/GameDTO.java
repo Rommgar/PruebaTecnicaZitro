@@ -1,8 +1,8 @@
 package local.jbenito.dto;
 
-import java.math.BigDecimal;
 import java.util.List;
 
+import local.jbenito.credit.Credit;
 import local.jbenito.game.AbailableGames;
 import local.jbenito.game.Prizes;
 
@@ -10,8 +10,8 @@ public abstract class GameDTO{
 		private final int id;
 		private final String name;
 		private final int idType;
-		private final BigDecimal minBet;
-		private final BigDecimal maxBet;
+		private final Credit minBet;
+		private final Credit maxBet;
 		private final int rewardPercentage;
 		private final Prizes[] prizes;
 		private static int gameCount;
@@ -20,8 +20,8 @@ public abstract class GameDTO{
 			this.id = ++gameCount;
 			this.name = game.name();
 			this.idType = game.getIdType();
-			this.minBet = game.getMinBet();
-			this.maxBet = game.getMaxBet();
+			this.minBet = new Credit(game.getMinBet().doubleValue());
+			this.maxBet = new Credit(game.getMaxBet().doubleValue());
 			this.rewardPercentage = game.getPrizePercentage();
 			this.prizes = game.getPrizes();
 		}
@@ -42,11 +42,11 @@ public abstract class GameDTO{
 			return idType;
 		}
 
-		public BigDecimal getMinBet() {
+		public Credit getMinBet() {
 			return minBet;
 		}
 
-		public BigDecimal getMaxBet() {
+		public Credit getMaxBet() {
 			return maxBet;
 		}
 

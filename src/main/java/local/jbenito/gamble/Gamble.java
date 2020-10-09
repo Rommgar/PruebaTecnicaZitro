@@ -1,8 +1,6 @@
 package local.jbenito.gamble;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
+import local.jbenito.credit.Credit;
 import local.jbenito.dto.GambleDTO;
 import local.jbenito.game.Prizes;
 import local.jbenito.loggin.LogFactory;
@@ -25,24 +23,18 @@ public class Gamble extends GambleDTO {
 				sendBet(this.game.getMinBet(), this.game.getMaxBet());
 				correctBet = true;
 			} catch (Exception e) {
-				logErr.send(e.toString());
+				//logErr.send(e.toString());
 				correctBet = false;
 			}
 		} while (!correctBet);
 		this.setOtherGameOptions(this.game.selectOtherOptions());
 	}
-
-	private boolean betIsInRange(BigDecimal selectedBet, BigDecimal minBet, BigDecimal maxBet) {
-		boolean betinRange  = (selectedBet.compareTo(maxBet) == -1 && selectedBet.compareTo(minBet) == 1);
-		betinRange = betinRange || selectedBet.compareTo(maxBet) == 0;
-		betinRange = betinRange || selectedBet.compareTo(minBet) == 0;
-		return betinRange;
-	}
 	
-	private void sendBet(BigDecimal minBet, BigDecimal maxBet) {
-		BigDecimal selectedBet = Sender.sendAvailableBets(minBet, maxBet);
-		if (betIsInRange(selectedBet, minBet, maxBet)) {
-			this.bet = normalizeBigDecimal(selectedBet);
+	private void sendBet(Credit minBet, Credit maxBet) {
+		Credit selectedBet = Sender.sendAvailableBets(minBet, maxBet);
+		if (selectedBet.isInRange(minBet, maxBet)) {
+			selectedBet = selectedBet.normalizeCredit();
+			this.bet = selectedBet;
 		} else {
 			throw new RuntimeException("La apuesta esta fuera de rango");
 		}
@@ -63,7 +55,8 @@ public class Gamble extends GambleDTO {
 
 	private void calculateBalance() {
 		if (isAwarded()) {
-			BigDecimal betPercenatge = new BigDecimal(prize.getBetPercentage() / 100);
+			Credit betPercenatge = new Credit((double)prize.getBetPercentage() / 100);
+			betPercenatge.normalizeCredit();
 			betPercenatge.subtract(bet);
 			this.balance = this.bet.multiply(betPercenatge);
 			this.setPlayerCredits(this.getPlayerCredits().add(balance));
@@ -71,18 +64,9 @@ public class Gamble extends GambleDTO {
 			this.balance = balance.subtract(this.bet);
 			this.setPlayerCredits(this.getPlayerCredits().subtract(bet));
 		}
-		this.balance = normalizeBigDecimal(this.balance);
-		this.setPlayerCredits(normalizeBigDecimal(this.getPlayerCredits()));
-	}
-	
-	private BigDecimal normalizeBigDecimal(BigDecimal bigDecimal) {
-		if (bigDecimal.scale() > 2) {
-			bigDecimal = bigDecimal.setScale(2, RoundingMode.DOWN);
-		}
-		else if(bigDecimal.scale() < 2) {
-			bigDecimal = new BigDecimal(bigDecimal.toString()+"0");
-		}
-		return bigDecimal;
+		this.balance = this.balance.normalizeCredit();
+		//System.out.println(this.balance.normalizeCredit());
+		this.player.setCredit(this.player.getCredit().normalizeCredit());
 	}
 
 	public void strat() {

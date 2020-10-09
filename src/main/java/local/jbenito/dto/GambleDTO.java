@@ -1,9 +1,9 @@
 package local.jbenito.dto;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import local.jbenito.credit.Credit;
 import local.jbenito.game.Prizes;
 import local.jbenito.player.Player;
 
@@ -11,8 +11,8 @@ public abstract class GambleDTO {
 	protected final LocalDateTime date;
 	protected GameDTO game;
 	protected Player player;
-	protected BigDecimal bet;
-	protected BigDecimal balance = new BigDecimal(0.00);
+	protected Credit bet;
+	protected Credit balance = new Credit(0.00);
 	protected Boolean awarded;
 	protected Prizes prize;
 	protected List<Object> otherGameOption;
@@ -31,12 +31,12 @@ public abstract class GambleDTO {
 		return player.getUuid();
 	}
 
-	public BigDecimal getBet() {
+	public Credit getBet() {
 		return bet;
 	}
 
-	public void setBet(Object object) {
-		this.bet = (BigDecimal) object;
+	public void setBet(Credit bet) {
+		this.bet = bet;
 	}
 
 	public String getTypeGame() {
@@ -67,20 +67,20 @@ public abstract class GambleDTO {
 		return this.otherGameOption;
 	}
 
-	public BigDecimal getBalance() {
+	public Credit getBalance() {
 		return this.balance;
 	}
 
-	public void setPlayerCredits(BigDecimal credits) {
+	public void setPlayerCredits(Credit credits) {
 		this.player.setCredit(credits);
 	}
 
-	public BigDecimal getPlayerCredits() {
+	public Credit getPlayerCredits() {
 		return this.player.getCredit();
 	}
 
 	public boolean isCreditsZero() {
-		return (this.player.getCredit().compareTo(BigDecimal.ZERO) == -1);
+		return (this.player.getCredit().isCreditsZero());
 	}
 
 	public int getUuidProvider() {
