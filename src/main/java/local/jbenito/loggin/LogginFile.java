@@ -6,6 +6,19 @@ import java.io.PrintWriter;
 
 public class LogginFile extends LogginFileAbs {
 	
+	private static LogginFile instance;
+	
+	private LogginFile() {
+	}
+	
+	public static LogginFile getInstance() {
+		if (instance == null) {
+			instance = new LogginFile();
+		}
+		return instance;
+	}
+	
+	
 	@Override
 	void tryToWrite(String log) {
 		try {

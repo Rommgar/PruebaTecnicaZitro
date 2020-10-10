@@ -3,14 +3,12 @@ package local.jbenito.gamble;
 import local.jbenito.credit.Credit;
 import local.jbenito.dto.GambleDTO;
 import local.jbenito.game.Prizes;
-import local.jbenito.loggin.LogFactory;
 import local.jbenito.loggin.LogSystem;
 import local.jbenito.sender.Sender;
 
 public class Gamble extends GambleDTO {
-	LogSystem log = new LogFactory().LogFile();
-	LogSystem logErr = new LogFactory().LogConsole();
-	
+	LogSystem logErr = factoryLog.LogConsole();
+	LogSystem log = factoryLog.LogFile();
 	
 	public Gamble(Object game, Object player) {
 		super(game, player);

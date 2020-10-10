@@ -5,9 +5,11 @@ import java.util.List;
 
 import local.jbenito.credit.Credit;
 import local.jbenito.game.Prizes;
+import local.jbenito.loggin.LogFactory;
 import local.jbenito.player.Player;
 
 public abstract class GambleDTO {
+	protected final LogFactory factoryLog;
 	protected final LocalDateTime date;
 	protected GameDTO game;
 	protected Player player;
@@ -18,6 +20,7 @@ public abstract class GambleDTO {
 	protected List<Object> otherGameOption;
 
 	public GambleDTO(Object game, Object player) {
+		this.factoryLog = new LogFactory();
 		this.balance = new Credit(00.00);
 		this.date = LocalDateTime.now();
 		this.game = (GameDTO) game;
