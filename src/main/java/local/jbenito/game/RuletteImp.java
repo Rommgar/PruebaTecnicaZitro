@@ -6,7 +6,7 @@ import java.util.Random;
 
 import local.jbenito.sender.Sender;
 
-public interface RuletteInt extends GameInt{
+public interface RuletteImp extends GameInt{
 	public static final int cuadrados = 38;
 	int [] numerosRuleta = new int[cuadrados];
     boolean [] coloresRuleta = new boolean[cuadrados];
