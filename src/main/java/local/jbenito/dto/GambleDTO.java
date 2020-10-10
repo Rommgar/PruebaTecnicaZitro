@@ -20,7 +20,7 @@ public abstract class GambleDTO {
 	protected List<Object> otherGameOption;
 
 	public GambleDTO(Object game, Object player) {
-		this.factoryLog = new LogFactory();
+		this.factoryLog = LogFactory.getInstance();
 		this.balance = new Credit(00.00);
 		this.date = LocalDateTime.now();
 		this.game = (GameDTO) game;
