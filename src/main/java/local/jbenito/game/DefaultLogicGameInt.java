@@ -2,7 +2,7 @@ package local.jbenito.game;
 
 import java.util.List;
 
-public interface DefaultInt extends GameInt{
+public interface DefaultLogicGameInt extends GameInt{
 
 	@Override
 	default Boolean play(List<Object> otherOptions) {
