@@ -4,7 +4,7 @@ import java.util.List;
 
 import local.jbenito.dto.GameDTO;
 
-public class GameRulette extends GameDTO implements RuletteInt{
+public class GameRulette extends GameDTO implements RuletteImp{
 	
 	public GameRulette(AbailableGames game) {
 		super(game);
@@ -12,12 +12,12 @@ public class GameRulette extends GameDTO implements RuletteInt{
 
 	@Override
 	public Boolean play(List<Object> otherOptions) {
-		return RuletteInt.super.play(otherOptions);
+		return RuletteImp.super.play(otherOptions);
 	}
 
 	@Override
 	public List<Object> selectOtherOptions() {
-		return RuletteInt.super.selectOtherOptions();
+		return RuletteImp.super.selectOtherOptions();
 	}
 	
 }

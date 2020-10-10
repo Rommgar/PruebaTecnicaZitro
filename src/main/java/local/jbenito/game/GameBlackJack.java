@@ -4,18 +4,18 @@ import java.util.List;
 
 import local.jbenito.dto.GameDTO;
 
-public class GameBlackJack extends GameDTO implements DefaultInt {
+public class GameBlackJack extends GameDTO implements DefaultLogicGameInt {
 	public GameBlackJack(AbailableGames game) {
 		super(game);
 	}
 
 	@Override
 	public Boolean play(List<Object> otherOptions) {
-		return DefaultInt.super.play(otherOptions);
+		return DefaultLogicGameInt.super.play(otherOptions);
 	}
 
 	@Override
 	public List<Object> selectOtherOptions() {
-		return DefaultInt.super.selectOtherOptions();
+		return DefaultLogicGameInt.super.selectOtherOptions();
 	}
 }

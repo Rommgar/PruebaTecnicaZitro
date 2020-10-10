@@ -4,7 +4,7 @@ import java.util.List;
 
 import local.jbenito.dto.GameDTO;
 
-public class GameVideoBingo extends GameDTO implements DefaultInt {
+public class GameVideoBingo extends GameDTO implements DefaultLogicGameInt {
 
 	public GameVideoBingo(AbailableGames game) {
 		super(game);
@@ -13,12 +13,12 @@ public class GameVideoBingo extends GameDTO implements DefaultInt {
 
 	@Override
 	public Boolean play(List<Object> otherOptions) {
-		return DefaultInt.super.play(otherOptions);
+		return DefaultLogicGameInt.super.play(otherOptions);
 	}
 
 	@Override
 	public List<Object> selectOtherOptions() {
-		return DefaultInt.super.selectOtherOptions();
+		return DefaultLogicGameInt.super.selectOtherOptions();
 	}
 	
 }
