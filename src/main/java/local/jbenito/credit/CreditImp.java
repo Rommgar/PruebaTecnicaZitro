@@ -25,4 +25,9 @@ public abstract class CreditImp{
 	public void setCredit(String credit) {
 		this.credit = new BigDecimal(credit);
 	}
+	
+	@Override
+	public String toString() {
+		return credit.toString();
+	}
 }

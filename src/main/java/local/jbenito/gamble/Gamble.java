@@ -24,11 +24,11 @@ public class Gamble extends GambleDTO {
 				sendBet(this.game.getMinBet(), this.game.getMaxBet());
 				correctBet = true;
 			} catch (Exception e) {
-				logErr.send(e.toString());
+				//logErr.send(e.toString());
 				correctBet = false;
 			}
 		} while (!correctBet);
-		this.setOtherGameOptions(((GameInt) this.game).selectOtherOptions());
+		this.setOtherGameOptions(this.game.selectOtherOptions());
 	}
 	
 	private void sendBet(CreditInt minBet, CreditInt maxBet) {
@@ -40,7 +40,7 @@ public class Gamble extends GambleDTO {
 			selectedBet.normalizeCredit();
 			maxBet.normalizeCredit();
 			minBet.normalizeCredit();
-			throw new RuntimeException("La apuesta esta fuera de rango MinBet: " + minBet.getCredit() + "MaxBet: " + 
+			throw new RuntimeException("La apuesta esta fuera de rango MinBet: " + minBet.getCredit() + " MaxBet: " + 
 					maxBet.getCredit() + " Bet: " + selectedBet.getCredit());
 		}
 
@@ -63,8 +63,8 @@ public class Gamble extends GambleDTO {
 		if (isAwarded()) {
 			CreditInt betPercenatge = new CreditBasic((double)prize.getBetPercentage() / 100);
 			betPercenatge.normalizeCredit();
+			betPercenatge.multiply(this.bet);
 			betPercenatge.subtract(bet);
-			this.bet.multiply(betPercenatge);
 			this.balance = this.bet;
 			playerCredit.add(balance);
 		} else {
