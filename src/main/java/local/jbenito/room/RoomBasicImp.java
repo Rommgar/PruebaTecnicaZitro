@@ -6,7 +6,7 @@ import local.jbenito.game.GameInitializer;
 import local.jbenito.gametimer.GameTimer;
 import local.jbenito.player.Player;
 
-public abstract class RoomBasicAbs implements RoomInt{
+public abstract class RoomBasicImp implements RoomInt{
 	Player player;
 	GameDTO game;
 	GameTimer timer;
