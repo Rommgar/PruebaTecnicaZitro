@@ -1,9 +1,12 @@
 package local.jbenito.casino;
 
 import local.jbenito.player.Player;
-import local.jbenito.room.Room;
+import local.jbenito.room.RoomFactory;
+import local.jbenito.room.RoomInt;
+
 
 public class Casino {
+	private static RoomFactory roomFactory = RoomFactory.getInstance();
 	private final int idCasino;
 	private static int countCasinos;
 	public final int maxPlayers;
@@ -37,8 +40,9 @@ public class Casino {
 	}
 
 	private void createRoom(Player player) {
-		Room room = new Room(player);
-		room.start();
+		RoomInt room = roomFactory.basicRoom(player);
+		Thread treath = new Thread(room);
+		treath.start();
 	}
 
 	public void stopCasino() {

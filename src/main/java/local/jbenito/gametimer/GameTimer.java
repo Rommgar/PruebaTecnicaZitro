@@ -19,7 +19,7 @@ public class GameTimer extends TimerTask {
 		}
 	}
 
-	public void decrementPlayerTime(Player player) {
+	public void decrementPlayerTime() {
 		Timer timer = new Timer();
 		GameTimer miContador = new GameTimer(player);
 		timer.schedule(miContador, 0);
