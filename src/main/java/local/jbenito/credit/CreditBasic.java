@@ -2,7 +2,7 @@ package local.jbenito.credit;
 
 import java.math.BigDecimal;
 
-public class CreditBasic extends CreditImp {
+public class CreditBasic extends CreditImp implements CreditInt{
 	
 	public CreditBasic(double credit) {
 		super(credit);
@@ -13,32 +13,33 @@ public class CreditBasic extends CreditImp {
 	public CreditBasic(String credit) {
 		super(credit);
 	}
+	
 	@Override
-	public void add(CreditImp augmend) {
+	public void add(CreditInt augmend) {
 		this.credit = this.credit.add(augmend.getCredit());
 	}
 	@Override
-	public void subtract(CreditImp subtrahend) {
+	public void subtract(CreditInt subtrahend) {
 		this.credit = this.credit.subtract(subtrahend.getCredit());
 	}
 	@Override
-	public void multiply(CreditImp multiplicand) {
+	public void multiply(CreditInt multiplicand) {
 		this.credit = this.credit.multiply(multiplicand.getCredit());
 	}
 	@Override
 	public void normalizeCredit() {
-		this.setCredit(CreditImp.NUMBER_FORMAT.format(this.credit));
+		this.setCredit(CreditInt.NUMBER_FORMAT.format(this.credit));
 	}
 	@Override
 	public boolean isCreditsZero() {
-		return this.credit.compareTo(CreditImp.ZERO)<= CreditImp.MINOR? true: false;
+		return this.credit.compareTo(CreditInt.ZERO)<= CreditInt.MINOR? true: false;
 	}
 	@Override
-	public boolean isInRange(CreditImp min, CreditImp max) {
-		boolean greaterThanMin = (this.credit.compareTo(min.getCredit()) == CreditImp.MAJOR);
-		boolean smallerThanMax = (this.credit.compareTo(max.getCredit())== CreditImp.MINOR);
-		boolean equalsMin = (this.credit.compareTo(min.getCredit()) == CreditImp.EQUALS);
-		boolean equalsMax = (this.credit.compareTo(max.getCredit()) == CreditImp.EQUALS);
+	public boolean isInRange(CreditInt min, CreditInt max) {
+		boolean greaterThanMin = (this.credit.compareTo(min.getCredit()) == CreditInt.MAJOR);
+		boolean smallerThanMax = (this.credit.compareTo(max.getCredit())== CreditInt.MINOR);
+		boolean equalsMin = (this.credit.compareTo(min.getCredit()) == CreditInt.EQUALS);
+		boolean equalsMax = (this.credit.compareTo(max.getCredit()) == CreditInt.EQUALS);
 		boolean isInRange = (greaterThanMin && smallerThanMax) || equalsMin || equalsMax;
 		return isInRange;
 	}

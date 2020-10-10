@@ -1,7 +1,8 @@
 package local.jbenito.gamble;
 
 import local.jbenito.credit.CreditBasic;
-import local.jbenito.credit.CreditImp;
+import local.jbenito.credit.CreditInt;
+
 import local.jbenito.dto.GambleDTO;
 import local.jbenito.game.GameInt;
 import local.jbenito.game.Prizes;
@@ -30,8 +31,8 @@ public class Gamble extends GambleDTO {
 		this.setOtherGameOptions(((GameInt) this.game).selectOtherOptions());
 	}
 	
-	private void sendBet(CreditImp minBet, CreditImp maxBet) {
-		CreditImp selectedBet = Sender.sendAvailableBets(minBet, maxBet);
+	private void sendBet(CreditInt minBet, CreditInt maxBet) {
+		CreditInt selectedBet = Sender.sendAvailableBets(minBet, maxBet);
 		if (selectedBet.isInRange(minBet, maxBet)) {
 			selectedBet.normalizeCredit();
 			this.bet = selectedBet;
@@ -58,9 +59,9 @@ public class Gamble extends GambleDTO {
 	}
 
 	private void calculateBalance() {
-		CreditImp playerCredit = this.player.getCredit();
+		CreditInt playerCredit = this.player.getCredit();
 		if (isAwarded()) {
-			CreditImp betPercenatge = new CreditBasic((double)prize.getBetPercentage() / 100);
+			CreditInt betPercenatge = new CreditBasic((double)prize.getBetPercentage() / 100);
 			betPercenatge.normalizeCredit();
 			betPercenatge.subtract(bet);
 			this.bet.multiply(betPercenatge);

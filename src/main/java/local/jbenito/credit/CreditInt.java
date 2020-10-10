@@ -14,10 +14,13 @@ public interface CreditInt {
 	public static final int EQUALS = 0;
 	public static final BigDecimal ZERO = BigDecimal.ZERO;
 	
-	void add(CreditImp augmend);
-	void subtract(CreditImp subtrahend);
-	void multiply(CreditImp multiplied);
+	void add(CreditInt augmend);
+	void subtract(CreditInt subtrahend);
+	void multiply(CreditInt multiplied);
 	void normalizeCredit();
 	boolean isCreditsZero();
-	boolean isInRange(CreditImp min, CreditImp max);
+	boolean isInRange(CreditInt min, CreditInt max);
+	public BigDecimal getCredit();
+	public void setCredit(BigDecimal credit);
+	public void setCredit(String credit);
 }

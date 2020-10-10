@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import local.jbenito.credit.CreditBasic;
-import local.jbenito.credit.CreditImp;
+import local.jbenito.credit.CreditInt;
 import local.jbenito.game.GameInt;
 import local.jbenito.game.Prizes;
 import local.jbenito.loggin.LogFactory;
@@ -15,8 +15,8 @@ public abstract class GambleDTO {
 	protected final LocalDateTime date;
 	protected GameInt game;
 	protected Player player;
-	protected CreditImp bet;
-	protected CreditImp balance;
+	protected CreditInt bet;
+	protected CreditInt balance;
 	protected Boolean awarded;
 	protected Prizes prize;
 	protected List<Object> otherGameOption;
@@ -37,11 +37,11 @@ public abstract class GambleDTO {
 		return player.getUuid();
 	}
 
-	public CreditImp getBet() {
+	public CreditInt getBet() {
 		return bet;
 	}
 
-	public void setBet(CreditImp bet) {
+	public void setBet(CreditInt bet) {
 		this.bet = bet;
 	}
 
@@ -73,15 +73,15 @@ public abstract class GambleDTO {
 		return this.otherGameOption;
 	}
 
-	public CreditImp getBalance() {
+	public CreditInt getBalance() {
 		return this.balance;
 	}
 
-	public void setPlayerCredits(CreditImp credits) {
+	public void setPlayerCredits(CreditInt credits) {
 		this.player.setCredit(credits);
 	}
 
-	public CreditImp getPlayerCredits() {
+	public CreditInt getPlayerCredits() {
 		return this.player.getCredit();
 	}
 
