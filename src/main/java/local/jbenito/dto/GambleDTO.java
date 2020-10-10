@@ -3,7 +3,9 @@ package local.jbenito.dto;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import local.jbenito.credit.Credit;
+import local.jbenito.credit.CreditBasic;
+import local.jbenito.credit.CreditImp;
+import local.jbenito.game.GameInt;
 import local.jbenito.game.Prizes;
 import local.jbenito.loggin.LogFactory;
 import local.jbenito.player.Player;
@@ -11,19 +13,19 @@ import local.jbenito.player.Player;
 public abstract class GambleDTO {
 	protected final LogFactory factoryLog;
 	protected final LocalDateTime date;
-	protected GameDTO game;
+	protected GameInt game;
 	protected Player player;
-	protected Credit bet;
-	protected Credit balance;
+	protected CreditImp bet;
+	protected CreditImp balance;
 	protected Boolean awarded;
 	protected Prizes prize;
 	protected List<Object> otherGameOption;
 
-	public GambleDTO(Object game, Object player) {
+	public GambleDTO(GameInt game, Object player) {
 		this.factoryLog = LogFactory.getInstance();
-		this.balance = new Credit(00.00);
+		this.balance = new CreditBasic(00.00);
 		this.date = LocalDateTime.now();
-		this.game = (GameDTO) game;
+		this.game = game;
 		this.player = (Player) player;
 	}
 
@@ -35,11 +37,11 @@ public abstract class GambleDTO {
 		return player.getUuid();
 	}
 
-	public Credit getBet() {
+	public CreditImp getBet() {
 		return bet;
 	}
 
-	public void setBet(Credit bet) {
+	public void setBet(CreditImp bet) {
 		this.bet = bet;
 	}
 
@@ -71,15 +73,15 @@ public abstract class GambleDTO {
 		return this.otherGameOption;
 	}
 
-	public Credit getBalance() {
+	public CreditImp getBalance() {
 		return this.balance;
 	}
 
-	public void setPlayerCredits(Credit credits) {
+	public void setPlayerCredits(CreditImp credits) {
 		this.player.setCredit(credits);
 	}
 
-	public Credit getPlayerCredits() {
+	public CreditImp getPlayerCredits() {
 		return this.player.getCredit();
 	}
 

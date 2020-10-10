@@ -1,7 +1,9 @@
 package local.jbenito.gamble;
 
-import local.jbenito.credit.Credit;
+import local.jbenito.credit.CreditBasic;
+import local.jbenito.credit.CreditImp;
 import local.jbenito.dto.GambleDTO;
+import local.jbenito.game.GameInt;
 import local.jbenito.game.Prizes;
 import local.jbenito.loggin.LogSystem;
 import local.jbenito.sender.Sender;
@@ -10,7 +12,7 @@ public class Gamble extends GambleDTO {
 	LogSystem logErr = factoryLog.LogConsole();
 	LogSystem log = factoryLog.LogFile();
 	
-	public Gamble(Object game, Object player) {
+	public Gamble(GameInt game, Object player) {
 		super(game, player);
 	}
 	
@@ -25,11 +27,11 @@ public class Gamble extends GambleDTO {
 				correctBet = false;
 			}
 		} while (!correctBet);
-		this.setOtherGameOptions(this.game.selectOtherOptions());
+		this.setOtherGameOptions(((GameInt) this.game).selectOtherOptions());
 	}
 	
-	private void sendBet(Credit minBet, Credit maxBet) {
-		Credit selectedBet = Sender.sendAvailableBets(minBet, maxBet);
+	private void sendBet(CreditImp minBet, CreditImp maxBet) {
+		CreditImp selectedBet = Sender.sendAvailableBets(minBet, maxBet);
 		if (selectedBet.isInRange(minBet, maxBet)) {
 			selectedBet.normalizeCredit();
 			this.bet = selectedBet;
@@ -56,9 +58,9 @@ public class Gamble extends GambleDTO {
 	}
 
 	private void calculateBalance() {
-		Credit playerCredit = this.player.getCredit();
+		CreditImp playerCredit = this.player.getCredit();
 		if (isAwarded()) {
-			Credit betPercenatge = new Credit((double)prize.getBetPercentage() / 100);
+			CreditImp betPercenatge = new CreditBasic((double)prize.getBetPercentage() / 100);
 			betPercenatge.normalizeCredit();
 			betPercenatge.subtract(bet);
 			this.bet.multiply(betPercenatge);

@@ -4,12 +4,11 @@ package local.jbenito.game;
 import java.util.Arrays;
 import java.util.List;
 
-import local.jbenito.dto.GameDTO;
 import local.jbenito.sender.Sender;
 
 public class GameInitializer {
-	public static GameDTO initGame(String selectedGame) {
-		GameDTO gameInitialized = null;
+	public static GameInt initGame(String selectedGame) {
+		GameInt gameInitialized = null;
 		List<AbailableGames> abailableGames = Arrays.asList(AbailableGames.values());
 		for (AbailableGames game : abailableGames) {
 			if (game.name() == selectedGame) {
@@ -30,20 +29,20 @@ public class GameInitializer {
 		return Sender.sendAvailableGames(nameGames);
 	}
 	
-	private static GameDTO gameSelector(AbailableGames game) {
+	private static GameInt gameSelector(AbailableGames game) {
+		GameFactory gameFactory = GameFactory.getInstance();
 		switch (game.getNameType()){
 		case "VIDEOBINGO":
-			return  new VideoBingo(game);
+			return gameFactory.getVideBingo(game);
 		case "BLACKJACK":
-			return  new BlackJack(game);
+			return gameFactory.getBlackJack(game);
 		case "POKER":
-			return  new Poker(game);
+			return gameFactory.getPoker(game);
 		case "RULETA":
-			return  new rulette(game);
+			return gameFactory.getRulette(game);
 		case "SLOTS":
-			return  new Slots(game);
+			return gameFactory.getSlots(game);
 		default:
-			//System.out.println("GameDTO no reconozido");
 			return null;
 		}
 	}

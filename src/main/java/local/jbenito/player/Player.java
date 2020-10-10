@@ -1,18 +1,19 @@
 package local.jbenito.player;
 
-import local.jbenito.credit.Credit;
+import local.jbenito.credit.CreditBasic;
+import local.jbenito.credit.CreditImp;
 
 public class Player {
 	private final int uuid;
 	private final int provider;
 	private long maxTimePlay;
-	private Credit credit;
+	private CreditImp credit;
 	private boolean playing;
 
 	public Player(int uuid, long maxTimePlay, int provider, double credit) {
 		this.uuid = uuid;
 		this.maxTimePlay = maxTimePlay;
-		this.credit = new Credit(credit);
+		this.credit = new CreditBasic(credit);
 		this.provider = provider;
 		this.playing = false;
 	}
@@ -41,11 +42,11 @@ public class Player {
 		this.playing = playing;
 	}
 
-	public Credit getCredit() {
+	public CreditImp getCredit() {
 		return credit;
 	}
 
-	public void setCredit(Credit credit) {
+	public void setCredit(CreditImp credit) {
 		this.credit = credit;
 	}
 

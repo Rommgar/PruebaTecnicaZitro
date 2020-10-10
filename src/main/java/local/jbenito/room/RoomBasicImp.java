@@ -1,14 +1,14 @@
 package local.jbenito.room;
 
-import local.jbenito.dto.GameDTO;
 import local.jbenito.gamble.Gamble;
 import local.jbenito.game.GameInitializer;
+import local.jbenito.game.GameInt;
 import local.jbenito.gametimer.GameTimer;
 import local.jbenito.player.Player;
 
 public abstract class RoomBasicImp implements RoomInt{
 	Player player;
-	GameDTO game;
+	GameInt game;
 	GameTimer timer;
 	Gamble gamble;
 	boolean running;
@@ -33,7 +33,7 @@ public abstract class RoomBasicImp implements RoomInt{
 	@Override
 	public void gameSelection() {
 		String availabelGames = GameInitializer.availableGames();
-		GameDTO selectedGame = GameInitializer.initGame(availabelGames);
+		GameInt selectedGame = GameInitializer.initGame(availabelGames);
 		this.game = selectedGame;
 		this.player.setPlaying(true);
 	}
