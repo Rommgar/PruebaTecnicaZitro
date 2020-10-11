@@ -46,5 +46,17 @@ public interface RuletteImp extends GameInt{
 		awarded = (color && sameNum) ? true: false;
 		return awarded;
 	}
+
+	@Override
+	default Prizes calculatePrize(Prizes[] prizes) {
+		Prizes rewardObtained = Prizes.STANDARPRIZE;
+		double rand = Math.random() * 101;
+		for (Prizes prize : prizes) {
+			if (rand < prize.getRewardWeight()) {
+				rewardObtained = prize;
+			}
+		}
+		return rewardObtained;
+	}
 	
 }

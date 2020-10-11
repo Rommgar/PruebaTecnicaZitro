@@ -19,5 +19,4 @@ public class GameRulette extends GameDTO implements RuletteImp{
 	public List<Object> selectOtherOptions() {
 		return RuletteImp.super.selectOtherOptions();
 	}
-	
 }

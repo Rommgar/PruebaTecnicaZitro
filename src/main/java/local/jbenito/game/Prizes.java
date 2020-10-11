@@ -7,7 +7,8 @@ public enum Prizes {
 	POKER(4, 3f, 70f),
 	GRANRULETA(5, 3f, 70f),
 	BINGOFULL(6, 2.5f, 70f),
-	GRANBOTE(7, 0.5f,98f);
+	GRANBOTE(7, 0.5f,98f),
+	NULL (0, 101f, 0f);
 	
 	private final int idPrize;
 	private final float rewardWeight;
@@ -23,8 +24,8 @@ public enum Prizes {
 		return this.idPrize;
 	}
 
-	public float getBetPercentage() {
-		return this.betPercentage;
+	public double getBetPercentage() {
+		return (double) this.betPercentage/100;
 	}
 	
 	public float getRewardWeight() {

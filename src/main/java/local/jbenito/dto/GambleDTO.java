@@ -7,26 +7,28 @@ import local.jbenito.credit.CreditBasic;
 import local.jbenito.credit.CreditInt;
 import local.jbenito.game.GameInt;
 import local.jbenito.game.Prizes;
-import local.jbenito.loggin.LogFactory;
 import local.jbenito.player.Player;
 
-public abstract class GambleDTO {
-	protected final LogFactory factoryLog;
-	protected final LocalDateTime date;
-	protected GameInt game;
-	protected Player player;
-	protected CreditInt bet;
-	protected CreditInt balance;
-	protected Boolean awarded;
-	protected Prizes prize;
-	protected List<Object> otherGameOption;
-
-	public GambleDTO(GameInt game, Object player) {
-		this.factoryLog = LogFactory.getInstance();
+public class GambleDTO {
+	private final LocalDateTime date;
+	private GameInt game;
+	private Player player;
+	private CreditInt bet;
+	private CreditInt balance;
+	private Boolean awarded;
+	private Prizes prize;
+	private List<Object> otherGameOption;
+	
+	public GambleDTO() {
+		this.date = LocalDateTime.now();
+	}
+	public GambleDTO(GameInt game, Player player) {
 		this.balance = new CreditBasic(00.00);
 		this.date = LocalDateTime.now();
 		this.game = game;
 		this.player = (Player) player;
+		this.prize = Prizes.NULL;
+		this.awarded = false;
 	}
 
 	public LocalDateTime getDate() {
@@ -91,6 +93,9 @@ public abstract class GambleDTO {
 
 	public int getUuidProvider() {
 		return this.player.getUuid();
+	}
+	public double getBetPercentage() {
+		return this.prize.getBetPercentage();
 	}
 	
 	public String toString() {

@@ -18,7 +18,5 @@ public class GameSlots extends GameDTO implements DefaultLogicGameInt {
 	@Override
 	public List<Object> selectOtherOptions() {
 		return DefaultLogicGameInt.super.selectOtherOptions();
-	}
-	
-	
+	}		
 }

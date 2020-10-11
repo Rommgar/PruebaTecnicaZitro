@@ -41,7 +41,7 @@ public abstract class RoomBasicImp implements RoomInt{
 	@Override
 	public void createGambel() {
 		while (this.player.isPlaying()) {
-			gamble = new Gamble(game, player);
+			gamble = new Gamble(player, game);
 			gamble.strat();
 		}
 	}
