@@ -1,7 +1,7 @@
 package local.jbenito.dto;
 
 import local.jbenito.credit.CreditBasic;
-import local.jbenito.game.AbailableGames;
+import local.jbenito.game.AvailableGames;
 import local.jbenito.game.Prizes;
 
 public class GameDTO{
@@ -13,7 +13,7 @@ public class GameDTO{
 		protected final Prizes[] prizes;
 		protected static int gameCount;
 		
-		public GameDTO(AbailableGames game) {
+		public GameDTO(AvailableGames game) {
 			this.name = game.name();
 			this.idType = game.getIdType();
 			this.minBet = new CreditBasic(game.getMinBet().doubleValue());

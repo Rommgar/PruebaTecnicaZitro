@@ -6,7 +6,7 @@ import local.jbenito.dto.GameDTO;
 
 public class GameRulette extends GameDTO implements RuletteImp{
 	
-	public GameRulette(AbailableGames game) {
+	public GameRulette(AvailableGames game) {
 		super(game);
 	}
 

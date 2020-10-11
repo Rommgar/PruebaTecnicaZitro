@@ -6,7 +6,7 @@ import local.jbenito.dto.GameDTO;
 
 public class GameSlots extends GameDTO implements DefaultLogicGameInt {
 
-	public GameSlots(AbailableGames game) {
+	public GameSlots(AvailableGames game) {
 		super(game);
 	}
 

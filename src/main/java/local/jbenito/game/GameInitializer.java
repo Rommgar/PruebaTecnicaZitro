@@ -9,8 +9,8 @@ import local.jbenito.sender.Sender;
 public class GameInitializer {
 	public static GameInt initGame(String selectedGame) {
 		GameInt gameInitialized = null;
-		List<AbailableGames> abailableGames = Arrays.asList(AbailableGames.values());
-		for (AbailableGames game : abailableGames) {
+		List<AvailableGames> abailableGames = Arrays.asList(AvailableGames.values());
+		for (AvailableGames game : abailableGames) {
 			if (game.name() == selectedGame) {
 				gameInitialized = gameSelector(game);
 			}
@@ -19,17 +19,17 @@ public class GameInitializer {
 	}
 	
 	public static String availableGames() {
-		List<AbailableGames> games = Arrays.asList(AbailableGames.values());
+		List<AvailableGames> games = Arrays.asList(AvailableGames.values());
 		String nameGames[] = new String[games.size()];
 		int i = 0;
-    	for (AbailableGames game : games) {
+    	for (AvailableGames game : games) {
     		nameGames[i] = game.name();
     		i++;
 		}
 		return Sender.sendAvailableGames(nameGames);
 	}
 	
-	private static GameInt gameSelector(AbailableGames game) {
+	private static GameInt gameSelector(AvailableGames game) {
 		GameFactory gameFactory = GameFactory.getInstance();
 		switch (game.getNameType()){
 		case "VIDEOBINGO":

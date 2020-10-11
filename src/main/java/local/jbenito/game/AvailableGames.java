@@ -2,7 +2,7 @@ package local.jbenito.game;
 
 import java.math.BigDecimal;
 
-public enum AbailableGames {
+public enum AvailableGames {
 	
 	STARSPOKER(1,"POKER","2.50","1000.00", 5,new Prizes[] {Prizes.POKER, Prizes.GRANBOTE}),
 	STARSSLOTS(2,"SLOTS","5.00","1000.00", 5, new Prizes[] {Prizes.SLOTSLOKOS, Prizes.GRANBOTE}),
@@ -22,7 +22,7 @@ public enum AbailableGames {
 	private final Prizes[] prizes;
 	
 	
-	AbailableGames(int idType, String nameType, String minBet, String maxBet, int prizePercentage, Prizes[] prizes){
+	AvailableGames(int idType, String nameType, String minBet, String maxBet, int prizePercentage, Prizes[] prizes){
 		this.idType = idType;
 		this.nameType = nameType;
 		this.minBet = new BigDecimal(minBet);

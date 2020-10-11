@@ -6,7 +6,7 @@ import local.jbenito.dto.GameDTO;
 
 public class GameVideoBingo extends GameDTO implements DefaultLogicGameInt {
 
-	public GameVideoBingo(AbailableGames game) {
+	public GameVideoBingo(AvailableGames game) {
 		super(game);
 		// TODO Auto-generated constructor stub
 	}
