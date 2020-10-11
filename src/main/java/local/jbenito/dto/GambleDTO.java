@@ -10,7 +10,7 @@ import local.jbenito.game.Prizes;
 import local.jbenito.player.Player;
 
 public class GambleDTO {
-	private final LocalDateTime date;
+	private LocalDateTime date;
 	private GameInt game;
 	private Player player;
 	private CreditInt bet;
@@ -21,6 +21,10 @@ public class GambleDTO {
 	
 	public GambleDTO() {
 		this.date = LocalDateTime.now();
+		this.balance = new CreditBasic(00.00);
+		this.prize = Prizes.NULL;
+		this.awarded = false;
+		
 	}
 	public GambleDTO(GameInt game, Player player) {
 		this.balance = new CreditBasic(00.00);
@@ -97,6 +101,19 @@ public class GambleDTO {
 	public double getBetPercentage() {
 		return this.prize.getBetPercentage();
 	}
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+	public void setGame(GameInt game) {
+		this.game = game;
+	}
+	public void setAllNull() {
+		this.date = LocalDateTime.now();
+		this.balance = new CreditBasic(00.00);
+		this.prize = Prizes.NULL;
+		this.awarded = false;
+		this.otherGameOption = null;
+	}
 	
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -122,5 +139,8 @@ public class GambleDTO {
 		builder.append(this.otherGameOption);
 		builder.append("]");
 		return builder.toString();
+	}
+	public void setBalance(CreditInt balance) {
+		this.balance =  balance;
 	}
 }

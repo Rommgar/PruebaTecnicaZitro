@@ -10,6 +10,8 @@ public class Gamble implements GambleBasic{
 	public Gamble(Player player, GameInt game){
 		this.player = player;
 		this.game = game;
+		gamble.setPlayer(player);
+		gamble.setGame(game);
 	}
 	
 	public void strat() {

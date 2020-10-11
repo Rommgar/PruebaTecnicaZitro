@@ -4,8 +4,8 @@ import java.util.List;
 
 import local.jbenito.dto.GameDTO;
 
-public class BlackJack extends GameDTO {
-	public BlackJack(AbailableGames game) {
+public class BlackJack extends GameDTO implements DefaultLogicGameInt {
+	public BlackJack(AvailableGames game) {
 		super(game);
 	}
 

@@ -10,7 +10,7 @@ import local.jbenito.player.Player;
 import local.jbenito.sender.Sender;
 
 public interface GambleBasic extends GambleInt{
-	GambleDTO gamble = new GambleDTO();
+	public static final GambleDTO gamble = new GambleDTO();
 	
 	default CreditInt tryBetIsCorrect(GameInt game) {
 		CreditInt selectedBet = null;
@@ -45,23 +45,23 @@ public interface GambleBasic extends GambleInt{
 		return selectedBet;
 	}
 	
-	default void calculateBalance(CreditInt playerCredit, Boolean isAwarded, double betPercentage,
+	default CreditInt calculateBalance(CreditInt playerCredit, Boolean isAwarded, double betPercentage,
 			CreditInt bet, CreditInt balance) {
+		balance.subtract(bet);
+		playerCredit.subtract(bet);
 		if (isAwarded) {
-			CreditInt betPercenatge = new CreditBasic(betPercentage);
-			betPercenatge.normalizeCredit();
-			betPercenatge.multiply(bet);
-			betPercenatge.subtract(bet);
-			balance = bet;
+			CreditInt calculatedPrize = new CreditBasic(betPercentage);;
+			calculatedPrize.multiply(bet);
+			balance = calculatedPrize;
+			calculatedPrize.add(bet);
 			playerCredit.add(balance);
-		} else {
-			balance.subtract(bet);
-			playerCredit.subtract(bet);
 		}
 		balance.normalizeCredit();
 		playerCredit.normalizeCredit();
+		return balance;
 	}
-
+	
+	
 	default void strat(Player player, GameInt game) {
 		gamble.setBet(tryBetIsCorrect(game));
 		gamble.setOtherGameOptions(selectOtherOptions(game));
@@ -69,13 +69,12 @@ public interface GambleBasic extends GambleInt{
 		if (gamble.isAwarded()) {
 			gamble.setPrize(game.calculatePrize(game.getPrizes()));
 		}
-		calculateBalance(player.getCredit(), gamble.isAwarded(), 
-				gamble.getBetPercentage(), gamble.getBet(), gamble.getBalance());
-		log.send(this.toString());
+		gamble.setBalance(calculateBalance(player.getCredit(), gamble.isAwarded(), 
+				gamble.getBetPercentage(), gamble.getBet(), gamble.getBalance()));
+		log.send(gamble.toString());
 		if (player.getCredit().isCreditsZero()) {
 			player.setPlaying(false);
 		}
+		gamble.setAllNull();
 	}
-	
-	
 }
