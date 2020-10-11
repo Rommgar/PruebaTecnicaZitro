@@ -18,101 +18,69 @@ public class GambleDTO {
 	private Boolean awarded;
 	private Prizes prize;
 	private List<Object> otherGameOption;
-	
-	public GambleDTO() {
-		this.date = LocalDateTime.now();
-		this.balance = new CreditBasic(00.00);
-		this.prize = Prizes.NULL;
-		this.awarded = false;
-		
-	}
+
 	public GambleDTO(GameInt game, Player player) {
 		this.balance = new CreditBasic(00.00);
 		this.date = LocalDateTime.now();
 		this.game = game;
-		this.player = (Player) player;
+		this.player = player;
 		this.prize = Prizes.NULL;
 		this.awarded = false;
 	}
 
-	public LocalDateTime getDate() {
-		return date;
+	private String getTypeGame() {
+		return this.game.getName();
 	}
 
-	public int getUuidPlayer() {
-		return player.getUuid();
-	}
-
-	public CreditInt getBet() {
-		return bet;
-	}
 
 	public void setBet(CreditInt bet) {
 		this.bet = bet;
 	}
 
-	public String getTypeGame() {
-		return game.getName();
+
+	public void setOtherGameOptions(List<Object> otherGameOption) {
+		this.otherGameOption = otherGameOption;
 	}
 
-	public void setAwarded(Boolean awarded) {
-		this.awarded = awarded;
-	}
-
-	public boolean isAwarded() {
-		return this.awarded;
-	}
-
-	public void setPrize(Prizes prize) {
-		this.prize = prize;
-	}
-
-	public Prizes getPrize() {
-		return this.prize;
-	}
-
-	public void setOtherGameOptions(List<Object> selectOtherOptions) {
-		this.otherGameOption = selectOtherOptions;
-	}
 
 	public List<Object> getOtherGameOptions() {
 		return this.otherGameOption;
 	}
 
+
+	public void setAwarded(Boolean play) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public boolean isAwarded() {
+		return awarded;
+	}
+
+
+	public void setPrize(Prizes prize) {
+		this.prize = prize;
+	}
+
+
+	public double getBetPercentage() {
+		return this.prize.getBetPercentage();
+	}
+
+
+	public CreditInt getBet() {
+		return this.bet;
+	}
+
+
 	public CreditInt getBalance() {
 		return this.balance;
 	}
 
-	public void setPlayerCredits(CreditInt credits) {
-		this.player.setCredit(credits);
-	}
 
-	public CreditInt getPlayerCredits() {
-		return this.player.getCredit();
-	}
-
-	public boolean isCreditsZero() {
-		return (this.player.getCredit().isCreditsZero());
-	}
-
-	public int getUuidProvider() {
-		return this.player.getUuid();
-	}
-	public double getBetPercentage() {
-		return this.prize.getBetPercentage();
-	}
-	public void setPlayer(Player player) {
-		this.player = player;
-	}
-	public void setGame(GameInt game) {
-		this.game = game;
-	}
-	public void setAllNull() {
-		this.date = LocalDateTime.now();
-		this.balance = new CreditBasic(00.00);
-		this.prize = Prizes.NULL;
-		this.awarded = false;
-		this.otherGameOption = null;
+	public void setBalance(CreditInt balance) {
+		this.balance = balance;
 	}
 	
 	public String toString() {
@@ -139,8 +107,5 @@ public class GambleDTO {
 		builder.append(this.otherGameOption);
 		builder.append("]");
 		return builder.toString();
-	}
-	public void setBalance(CreditInt balance) {
-		this.balance =  balance;
 	}
 }

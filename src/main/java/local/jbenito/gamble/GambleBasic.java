@@ -10,7 +10,6 @@ import local.jbenito.player.Player;
 import local.jbenito.sender.Sender;
 
 public interface GambleBasic extends GambleInt{
-	public static final GambleDTO gamble = new GambleDTO();
 	
 	default CreditInt tryBetIsCorrect(GameInt game) {
 		CreditInt selectedBet = null;
@@ -20,7 +19,7 @@ public interface GambleBasic extends GambleInt{
 				selectedBet = sendBet(game.getMinBet(), game.getMaxBet());
 				correctBet = true;
 			} catch (Exception e) {
-				//logErr.send(e.toString());
+				logErr.send(e.toString());
 				correctBet = false;
 			}
 		} while (!correctBet);
@@ -47,13 +46,14 @@ public interface GambleBasic extends GambleInt{
 	
 	default CreditInt calculateBalance(CreditInt playerCredit, Boolean isAwarded, double betPercentage,
 			CreditInt bet, CreditInt balance) {
-		balance.subtract(bet);
-		playerCredit.subtract(bet);
 		if (isAwarded) {
 			CreditInt calculatedPrize = new CreditBasic(betPercentage);;
 			calculatedPrize.multiply(bet);
-			balance = calculatedPrize;
-			calculatedPrize.add(bet);
+			balance.add(calculatedPrize);
+			playerCredit.add(balance);
+		}
+		else {
+			balance.subtract(bet);
 			playerCredit.add(balance);
 		}
 		balance.normalizeCredit();
@@ -62,7 +62,7 @@ public interface GambleBasic extends GambleInt{
 	}
 	
 	
-	default void strat(Player player, GameInt game) {
+	default void strat(Player player, GameInt game, GambleDTO gamble) {
 		gamble.setBet(tryBetIsCorrect(game));
 		gamble.setOtherGameOptions(selectOtherOptions(game));
 		gamble.setAwarded(game.play(gamble.getOtherGameOptions()));
@@ -75,6 +75,5 @@ public interface GambleBasic extends GambleInt{
 		if (player.getCredit().isCreditsZero()) {
 			player.setPlaying(false);
 		}
-		gamble.setAllNull();
 	}
 }

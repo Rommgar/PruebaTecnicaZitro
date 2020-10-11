@@ -1,5 +1,6 @@
 package local.jbenito.gamble;
 
+import local.jbenito.dto.GambleDTO;
 import local.jbenito.game.GameInt;
 import local.jbenito.loggin.LogFactory;
 import local.jbenito.loggin.LogSystem;
@@ -10,5 +11,5 @@ public interface GambleInt {
 	final LogSystem log = factoryLog.LogFile();
 	final LogSystem logErr = factoryLog.LogConsole();
 	
-	public void strat(Player player, GameInt game);
+	public void strat(Player player, GameInt game, GambleDTO gamble);
 }
